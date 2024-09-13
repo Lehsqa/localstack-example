@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>File Upload</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <style>
+            body {
+                padding-top: 50px;
+            }
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2 class="text-center">Upload Your File for Processing</h2>
+            <form
+                id="uploadForm"
+                method="POST"
+                enctype="multipart/form-data"
+                action="/upload"
+            >
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        required
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="file">Choose file to upload:</label>
+                    <input
+                        type="file"
+                        class="form-control-file"
+                        id="file"
+                        name="file"
+                        required
+                    />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                    Upload
+                </button>
+            </form>
+
+            <div id="status" class="mt-4"></div>
+        </div>
+
+        <script>
+            const form = document.getElementById("uploadForm");
+            const statusDiv = document.getElementById("status");
+
+            form.addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: "POST",
+                    body: formData,
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    statusDiv.innerHTML = `<div class="alert alert-success">${result.message}</div>`;
+                } else {
+                    statusDiv.innerHTML = `<div class="alert alert-danger">${result.error}</div>`;
+                }
+            });
+        </script>
+    </body>
+</html>
