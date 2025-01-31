@@ -36,15 +36,15 @@ localstack-example/
 
 2. Set up AWS services:
    ```
-   python setup_s3.py
-   python setup_sns.py
-   python setup_dynamodb.py
-   python setup_lambda.py
+   python infrastructure/setup_s3.py
+   python infrastructure/setup_sns.py
+   python infrastructure/setup_dynamodb.py
+   python infrastructure/setup_lambda.py
    ```
 
 3. Run the Flask application:
    ```
-   python app.py
+   python app/app.py
    ```
 
 ## Components

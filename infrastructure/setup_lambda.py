@@ -15,12 +15,14 @@ region = 'us-east-2'
 # Initialize Lambda client
 lambda_client = boto3.client('lambda', region_name=region)
 
+
 def create_lambda_package():
     # Zip the Lambda function code
     with zipfile.ZipFile(ZIP_FILE, 'w') as zipf:
         zipf.write(f'{ROOT_DIR}/lambda/lambda_function.py', 'lambda_function.py')
         zipf.write(f'{ROOT_DIR}/lambda/lambda_handler.py', 'lambda_handler.py')
     print(f"Created Lambda package: {ZIP_FILE}")
+
 
 def deploy_lambda_function(function_name, zip_file, handler, runtime, role_arn):
     try:
@@ -39,6 +41,7 @@ def deploy_lambda_function(function_name, zip_file, handler, runtime, role_arn):
         print(f"Lambda function '{function_name}' created successfully.")
     except ClientError as e:
         print(f"Error creating Lambda function: {e}")
+
 
 if __name__ == '__main__':
     create_lambda_package()

@@ -8,6 +8,7 @@ region = 'us-east-2'  # Set your desired AWS region
 # Initialize SNS client
 sns = boto3.client('sns', region_name=region)
 
+
 def create_sns_topic(topic_name):
     try:
         response = sns.create_topic(Name=topic_name)
@@ -16,6 +17,7 @@ def create_sns_topic(topic_name):
         return sns_topic_arn
     except ClientError as e:
         print(f"Error creating SNS topic: {e}")
+
 
 def subscribe_to_topic(topic_arn, protocol, endpoint):
     try:
@@ -27,6 +29,7 @@ def subscribe_to_topic(topic_arn, protocol, endpoint):
         print(f"Subscribed {endpoint} to topic {topic_arn}.")
     except ClientError as e:
         print(f"Error subscribing to SNS topic: {e}")
+
 
 if __name__ == '__main__':
     sns_topic_arn = create_sns_topic(SNS_TOPIC_NAME)
